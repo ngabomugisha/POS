@@ -199,14 +199,13 @@ public class Login extends javax.swing.JFrame {
          String username;
         username = username_ui.getText();
         String password;
-        password = password_ui.
         try {
             
-            DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-            dt.setRowCount(0);
+            //DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
+            //dt.setRowCount(0);
             Statement s = db.mycon().createStatement();
             
-            ResultSet rs = s.executeQuery("SELECT * FROM supplier WHERE supplier_Name LIKE '%"+name+"%' ");
+            ResultSet rs = s.executeQuery("SELECT * FROM supplier WHERE supplier_Name LIKE '%"+username+"%' ");
             
             while (rs.next()) {                
                 Vector v = new Vector();
@@ -215,12 +214,12 @@ public class Login extends javax.swing.JFrame {
                 v.add(rs.getString(2));
                 v.add(rs.getString(3));
                 
-                dt.addRow(v);
+                //dt.addRow(v);
                 
                 
             }
         } catch (Exception e) {
-            tb_load();
+//            tb_load();
         }
         
         
