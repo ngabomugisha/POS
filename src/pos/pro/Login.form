@@ -11,9 +11,6 @@
       <Dimension value="[1000, 400]"/>
     </Property>
     <Property name="undecorated" type="boolean" value="true"/>
-    <Property name="shape" type="java.awt.Shape" editor="org.netbeans.modules.form.RADConnectionPropertyEditor">
-      <Connection component="Form" name="maximizedBounds" type="property"/>
-    </Property>
     <Property name="size" type="java.awt.Dimension" editor="org.netbeans.beaninfo.editors.DimensionEditor">
       <Dimension value="[200, 100]"/>
     </Property>

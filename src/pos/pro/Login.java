@@ -6,58 +6,26 @@
 package pos.pro;
 
 import java.awt.HeadlessException;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import java.sql.*;
 import java.util.HashMap;
 import java.util.Vector;
-import javax.swing.DefaultComboBoxModel;
-import javax.swing.JOptionPane;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.*;
 /**
  *
  * @author DevRobert
  */
 public class Login extends javax.swing.JFrame {
-
+Connection conn = null;
+PreparedStatement pst = null;
+ResultSet  rs = null;
     /**
      * Creates new form Login
      */
     public Login() {
         initComponents();
-        datalad();
     }
     
-        
-  public void datalad(){
-  
-      try {
-          
-          //DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-          //dt.setRowCount(0);
-          
-          Statement s = db.mycon().createStatement();
-          ResultSet rs = s.executeQuery(" SELECT * FROM employee");
-          
-          while (rs.next()) {              
-              
-              Vector v = new Vector();
-              
-              v.add(rs.getString(1));
-              v.add(rs.getString(2));
-              v.add(rs.getString(3));
-              
-              //dt.addRow(v);
-                
-          }
-           
-      } catch (SQLException e) {
-            System.out.println(e);
-      }
-     
-      
-  }  
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -81,7 +49,6 @@ public class Login extends javax.swing.JFrame {
         setMaximizedBounds(new java.awt.Rectangle(0, 0, 0, 0));
         setMaximumSize(new java.awt.Dimension(1000, 400));
         setUndecorated(true);
-        setShape(getMaximizedBounds());
         setSize(new java.awt.Dimension(200, 100));
 
         jLabel3.setFont(new java.awt.Font("Tahoma", 3, 24)); // NOI18N
@@ -196,32 +163,28 @@ public class Login extends javax.swing.JFrame {
 
         // TODO add your handling code here:
         
-         String username;
+        String username;
         username = username_ui.getText();
-        String password;
+        String password = password_ui.getText();
+        
+        conn = MysqlConnect.ConnectDB();
+        String sql = "Select * from employee where username=? and password=?";
         try {
-            
-            //DefaultTableModel dt = (DefaultTableModel) jTable1.getModel();
-            //dt.setRowCount(0);
-            Statement s = db.mycon().createStatement();
-            
-            ResultSet rs = s.executeQuery("SELECT * FROM supplier WHERE supplier_Name LIKE '%"+username+"%' ");
-            
-            while (rs.next()) {                
-                Vector v = new Vector();
-                
-                v.add(rs.getString(1));
-                v.add(rs.getString(2));
-                v.add(rs.getString(3));
-                
-                //dt.addRow(v);
-                
-                
+            pst =conn.prepareStatement(sql);
+            pst.setString(1,username_ui.getText());
+            pst.setString(2,password_ui.getText());
+            rs=pst.executeQuery();
+            if(rs.next()){
+                //JOptionPane.showMessageDialog(null, "Welcome user");
+                Home home = new Home(username);
+                home.setVisible(true);
+            }
+            else{
+                JOptionPane.showMessageDialog(null, "Invalid username or password", "Access Denied",JOptionPane.ERROR_MESSAGE);
             }
         } catch (Exception e) {
-//            tb_load();
+            JOptionPane.showMessageDialog(null, e);
         }
-        
         
         
     }//GEN-LAST:event_btn_loginActionPerformed
