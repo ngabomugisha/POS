@@ -53,9 +53,9 @@ public class sale extends javax.swing.JPanel {
           //create list for products as arraylist
     public ArrayList<String> products = new ArrayList<>();
     public sale() {
-        initComponents();
+       initComponents();
        data_load();
-         JOptionPane.showMessageDialog(null, products, "InfoBox: " + "ttt", JOptionPane.INFORMATION_MESSAGE);
+       product.requestFocus(true);
     }
 
   public void data_load(){
@@ -291,7 +291,6 @@ public class sale extends javax.swing.JPanel {
         });
 
         p_qty.setFont(new java.awt.Font("Tahoma", 1, 18)); // NOI18N
-        p_qty.setText("0");
         p_qty.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyReleased(java.awt.event.KeyEvent evt) {
                 p_qtyKeyReleased(evt);
@@ -306,6 +305,13 @@ public class sale extends javax.swing.JPanel {
 
         br_code.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         br_code.setText("0");
+
+        product.setInheritsPopupMenu(true);
+        product.addKeyListener(new java.awt.event.KeyAdapter() {
+            public void keyReleased(java.awt.event.KeyEvent evt) {
+                productKeyReleased(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -324,7 +330,7 @@ public class sale extends javax.swing.JPanel {
                 .addGap(18, 18, 18)
                 .addComponent(jLabel5)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 102, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, 174, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jLabel6)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -340,6 +346,10 @@ public class sale extends javax.swing.JPanel {
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel3Layout.createSequentialGroup()
+                .addComponent(product, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(com_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(tot_price, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -348,7 +358,9 @@ public class sale extends javax.swing.JPanel {
                     .addComponent(jLabel6, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
-                        .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jLabel5, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(p_qty, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)))
                     .addGroup(jPanel3Layout.createSequentialGroup()
                         .addGap(7, 7, 7)
                         .addComponent(jLabel4, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
@@ -358,13 +370,8 @@ public class sale extends javax.swing.JPanel {
                             .addComponent(com_cus, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(jLabel3, javax.swing.GroupLayout.PREFERRED_SIZE, 44, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addGap(0, 0, Short.MAX_VALUE))
-                    .addComponent(p_qty, javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(br_code, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addComponent(product, javax.swing.GroupLayout.PREFERRED_SIZE, 31, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(com_pro, javax.swing.GroupLayout.PREFERRED_SIZE, 34, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
 
         jPanel4.setBorder(javax.swing.BorderFactory.createEtchedBorder());
@@ -828,7 +835,7 @@ public class sale extends javax.swing.JPanel {
 
     private void jButton1KeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_jButton1KeyPressed
         // TODO add your handling code here:
-        if(evt.getKeyCode()== KeyEvent.VK_ENTER)
+        if(evt.getKeyCode()== 10)
         {
              JOptionPane.showMessageDialog(null, "enter key pressed", "InfoBox: " + "enter key", JOptionPane.INFORMATION_MESSAGE);
         }
@@ -841,6 +848,29 @@ public class sale extends javax.swing.JPanel {
              JOptionPane.showMessageDialog(null, "enter key pressed", "InfoBox: " + "enter key", JOptionPane.INFORMATION_MESSAGE);
         }
     }//GEN-LAST:event_jButton1KeyTyped
+
+    private void productKeyReleased(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_productKeyReleased
+        // TODO add your handling code here:
+         try {
+            
+            Statement s = db.mycon().createStatement();
+            ResultSet rs = s.executeQuery("SELECT * FROM product  WHERE Bar_code ='"+product.getText()+"'  ");
+            if (rs.next()) {
+                 
+               com_pro.setSelectedItem(rs.getString("Product_Name"));
+             
+            }
+          
+        
+        
+             pro_tot_cal();
+            
+            
+        } catch (SQLException e) {
+            System.out.println(e);
+        }
+        
+    }//GEN-LAST:event_productKeyReleased
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
