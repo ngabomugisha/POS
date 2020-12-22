@@ -168,7 +168,7 @@ ResultSet  rs = null;
         String password = password_ui.getText();
         
         conn = MysqlConnect.ConnectDB();
-        String sql = "Select * from employee where username=? and password=?";
+        String sql = "Select * from employee where employee_username=? and employee_password=?";
         try {
             pst =conn.prepareStatement(sql);
             pst.setString(1,username_ui.getText());
@@ -178,6 +178,7 @@ ResultSet  rs = null;
                 //JOptionPane.showMessageDialog(null, "Welcome user");
                 Home home = new Home(username);
                 home.setVisible(true);
+                this.setVisible(false);
             }
             else{
                 JOptionPane.showMessageDialog(null, "Invalid username or password", "Access Denied",JOptionPane.ERROR_MESSAGE);
