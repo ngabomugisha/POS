@@ -157,7 +157,7 @@
                       <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="jLabel5" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
-                      <Component id="p_qty" min="-2" pref="102" max="-2" attributes="0"/>
+                      <Component id="p_qty" min="-2" pref="174" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="jLabel6" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -174,7 +174,12 @@
             </DimensionLayout>
             <DimensionLayout dim="1">
               <Group type="103" groupAlignment="0" attributes="0">
-                  <Group type="102" alignment="0" attributes="0">
+                  <Group type="102" attributes="0">
+                      <Component id="product" min="-2" pref="31" max="-2" attributes="0"/>
+                      <EmptySpace max="32767" attributes="0"/>
+                      <Component id="com_pro" min="-2" pref="34" max="-2" attributes="0"/>
+                  </Group>
+                  <Group type="102" alignment="1" attributes="0">
                       <EmptySpace max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="tot_price" max="32767" attributes="0"/>
@@ -183,7 +188,10 @@
                           <Component id="jLabel6" alignment="0" max="32767" attributes="0"/>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
-                              <Component id="jLabel5" max="32767" attributes="0"/>
+                              <Group type="103" groupAlignment="3" attributes="0">
+                                  <Component id="jLabel5" alignment="3" max="32767" attributes="0"/>
+                                  <Component id="p_qty" alignment="3" min="-2" max="-2" attributes="0"/>
+                              </Group>
                           </Group>
                           <Group type="102" alignment="0" attributes="0">
                               <EmptySpace min="7" pref="7" max="-2" attributes="0"/>
@@ -197,15 +205,9 @@
                               </Group>
                               <EmptySpace min="0" pref="0" max="32767" attributes="0"/>
                           </Group>
-                          <Component id="p_qty" alignment="1" max="32767" attributes="0"/>
                           <Component id="br_code" alignment="0" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace max="-2" attributes="0"/>
-                  </Group>
-                  <Group type="102" attributes="0">
-                      <Component id="product" min="-2" pref="31" max="-2" attributes="0"/>
-                      <EmptySpace max="32767" attributes="0"/>
-                      <Component id="com_pro" min="-2" pref="34" max="-2" attributes="0"/>
                   </Group>
               </Group>
             </DimensionLayout>
@@ -292,7 +294,6 @@
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Tahoma" size="18" style="1"/>
                 </Property>
-                <Property name="text" type="java.lang.String" value="0"/>
               </Properties>
               <Events>
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="p_qtyKeyReleased"/>
@@ -323,6 +324,12 @@
               </Properties>
             </Component>
             <Component class="javax.swing.JTextField" name="product">
+              <Properties>
+                <Property name="inheritsPopupMenu" type="boolean" value="true"/>
+              </Properties>
+              <Events>
+                <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="productKeyReleased"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
