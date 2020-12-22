@@ -162,7 +162,8 @@ String loggedinuser;
         conf_new_pass = conf_new_password.getText();
 
         if(!Objects.equals(new_pass, conf_new_pass))
-        {JOptionPane.showMessageDialog(null, "password and password confirm does not match");
+        {
+            JOptionPane.showMessageDialog(null, "password and password confirm does not match");
             return;
         }
 
@@ -182,6 +183,9 @@ String loggedinuser;
                     int count = s.executeUpdate(sql1);
                     if(count>0)
                     JOptionPane.showMessageDialog(null, "Data Updated");
+                    else
+                    JOptionPane.showMessageDialog(null, "fail to update data"+loggedinuser);
+                        
                 } catch (Exception e) {
                 }
             }

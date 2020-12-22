@@ -330,7 +330,7 @@ public final class Home extends javax.swing.JFrame {
         // TODO add your handling code here:
         
         
-        changePassword cus = new changePassword();
+        changePassword cus = new changePassword(login_user);
         jpload.jPanelLoader(panel_load, cus);
     }//GEN-LAST:event_jMenu3MouseClicked
 
