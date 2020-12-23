@@ -20,6 +20,7 @@ import java.awt.print.PrinterJob;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.Random;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -42,11 +43,29 @@ public class product extends javax.swing.JPanel {
     /**
      * Creates new form customer
      */
+        
+    public static long numbGen() {
+    while (true) {
+    long numb = (long)(Math.random() * 100000000 * 1000000); // had to use this as int's are to small for a 13 digit number.
+        if (String.valueOf(numb).length() == 12)
+            return numb;
+    }
+}
+        
     public product() {
         initComponents();
         tb_load();
         
-        
+//int min = 100000000;
+//int max = 999999999;
+
+//Random r = new Random();
+//int randomnumber = r.nextInt(max - min + 1) + min;
+        p_bcode.setText(String.valueOf(numbGen()));
+        p_bcode.enableInputMethods(false);
+        String br = barcode.encode(p_bcode.getText());    
+        barcode_img.setText(br);
+        barcode_img.setFont(new java.awt.Font("CCode128_s3_Trial",java.awt.Font.PLAIN,24));
     }
 
   public void tb_load(){
