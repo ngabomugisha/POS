@@ -1,12 +1,38 @@
 <?php
 include('security.php');
 
+$id = $_POST['id'];
+$username = $_POST['username'];
+$names = $_POST['names'];
+$type = $_POST['e_type'];
+
+
+if(isset($_POST['delete_btn']))
+{
+    $id = $_POST['delete_id'];
+    $query = "DELETE FROM `employee` WHERE `eid` = '$id'";
+    $query_run = mysqli_query($connection, $query);
+
+    if($query_run)
+    {
+        $_SESSION['status'] = "Your Data is Updated";
+        $_SESSION['status_code'] = "success";
+        header('Location: register.php');
+    }
+    else
+    {
+        $_SESSION['status'] = "Your Data is NOT Updated";
+        $_SESSION['status_code'] = "error";
+        header('Location: register.php'); 
+    }
+
+}
+
+
+
+
 if(isset($_POST['updatebtn']))
 {
-    $id = $_POST['id'];
-    $username = $_POST['username'];
-    $names = $_POST['names'];
-    $type = $_POST['e_type'];
     echo $id + $username ;
    // $query1 = "INSERT INTO employee (employee_username,Employee_Name,employee_type,employee_password) VAlUES('$username','$names','$type','$password')";
     $query = "UPDATE employee SET employee_username='$username', employee_type='$type', employee_name = '$names WHERE eid='$id' ";

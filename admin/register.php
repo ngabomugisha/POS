@@ -52,14 +52,8 @@ include('security.php')
   </div>
 </div>
 
-<div class="container-fluid">
 
-    <!-- DataTales Example -->
-    <div class="card shadow mb-4">
-        <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary"> EDIT Admin Profile </h6>
-        </div>
-        <div class="card-body">
+
         <?php
 
             if(isset($_POST['edit_btn']))
@@ -117,20 +111,17 @@ include('security.php')
                 }
             }
         ?>
-        </div>
-    </div>
-</div>
 
-</div>
+
 
 <div class="container-fluid">
 
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">Admin Profile 
+    <h6 class="m-0 font-weight-bold text-primary">List of all employees
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addadminprofile">
-              Add Admin Profile 
+              Add new employee 
             </button>
     </h6>
   </div>
@@ -141,7 +132,7 @@ include('security.php')
 
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <?php
-                $query = "SELECT * FROM employee";
+                $query = "SELECT * FROM employee ORDER BY Employee_Name";
                 $query_run = mysqli_query($connection, $query);
             ?>
         <thead>
