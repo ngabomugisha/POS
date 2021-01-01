@@ -9,7 +9,7 @@ include('security.php')
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add Admin Data</h5>
+        <h5 class="modal-title" id="exampleModalLabel">Add New Product</h5>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
@@ -18,40 +18,61 @@ include('security.php')
         <div class="modal-body">
 
             <div class="form-group">
-                <label> Username </label>
-                <input type="text" name="username" class="form-control" placeholder="Enter Username">
+                <label> Product Name </label>
+                <input type="text" name="p_name" class="form-control" placeholder="Enter Product name">
             </div>
             <div class="form-group">
-                <label>Name</label>
-                <input type="text" name="names" class="form-control" placeholder="Enter Name">
+                <label>Barcode Number</label>
+                <input type="text" name="bn" class="form-control" placeholder="">
             </div>
             <div class="form-group">
-                <label>Employee Type</label>
-                <select  name="e_type" class="form-control">
-                <option value = "Manager">Manager</option>
-                <option value = "Cashier">Cashier</option>
+                <label> Product Quantity</label>
+                <input type="text" name="p_quantity" class="form-control" placeholder="Enter Product Quantity">
+            </div>
+            <div class="form-group">
+                <label>Unit per Package</label>
+                <input type="number" name="p_unit_package" class="form-control" placeholder="Enter Product Price per Unity or Package">
+            </div>
+            <div class="form-group">
+                <label>Product Price</label>
+                <input type="number" name="p_price" class="form-control" placeholder="Enter Product Price per Package">
+            </div>
+            <?php
+                $query = "SELECT * FROM supplier";
+                $query_run = mysqli_query($connection, $query);
+            ?>
+            <div class="form-group">
+                <label>Select Supplier</label>
+                <select  name="sup" class="form-control">
+                <?php
+                foreach($query_run as $row)
+                {
+                  $sn = $row['supplier_Name'];
+                  $sid = $row['sid'];
+                  ?>
+                <option value = "<?php 
+                echo $sid; 
+                ?>"
+                > 
+                <?php echo $sn; ?>
+                </option>
+                <?php
+                }
+                ?>
                 </select>
             </div>
-            <div class="form-group">
-                <label>Password</label>
-                <input type="password" name="password" class="form-control" placeholder="Enter Password">
-            </div>
-            <div class="form-group">
-                <label>Confirm Password</label>
-                <input type="password" name="confirmpassword" class="form-control" placeholder="Confirm Password">
-            </div>
-        
         </div>
         <div class="modal-footer">
+        <input type="hidden" name="sid" value="
+                <?php echo $sid; ?>">
             <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="submit" name="registerbtn" class="btn btn-primary">Save</button>
+            <button type="submit" name="add_product" class="btn btn-primary">Save</button>
         </div>
       </form>
 
     </div>
   </div>
 </div>
-
 
 
         <?php
@@ -119,9 +140,9 @@ include('security.php')
 <!-- DataTales Example -->
 <div class="card shadow mb-4">
   <div class="card-header py-3">
-    <h6 class="m-0 font-weight-bold text-primary">List of all employees
+    <h6 class="m-0 font-weight-bold text-primary">List of all Products
             <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addadminprofile">
-              Add new employee 
+              Add new Product 
             </button>
     </h6>
   </div>
@@ -132,15 +153,17 @@ include('security.php')
 
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <?php
-                $query = "SELECT * FROM employee ORDER BY Employee_Name";
+                $query = "SELECT * FROM product_view ORDER BY Product_Name";
                 $query_run = mysqli_query($connection, $query);
             ?>
         <thead>
           <tr>
-            <th> name </th>
-            <th> Username </th>
-            <th>user Type </th>
-            <th>Password</th>
+            <th> Product Name </th>
+            <th> Barcode </th>
+            <th> Quantity </th>
+            <th> Units per package </th>
+            <th> Price per package</th>
+            <th> Supllier </th>
             <th>EDIT </th>
             <th>DELETE </th>
           </tr>
@@ -153,20 +176,22 @@ include('security.php')
                             {
                         ?>
                             <tr>
-                                <td><?php  echo $row['Employee_Name']; ?></td>
-                                <td><?php  echo $row['employee_username']; ?></td>
-                                <td><?php  echo $row['employee_type']; ?></td>
-                                <td><?php  echo $row['employee_password']; ?></td>
+                                <td><?php  echo $row['Product_Name']; ?></td>
+                                <td><?php  echo $row['Bar_code']; ?></td>
+                                <td><?php  echo $row['Qty']; ?></td>
+                                <td><?php  echo $row['p_units_package	']; ?></td>
+                                <td><?php  echo $row['Price']; ?></td>
+                                <td><?php  echo $row['supplier_Name']; ?></td>
                                 <td>
                                     <form action="employee_edit.php" method="post">
-                                        <input type="hidden" name="edit_id" value="<?php echo $row['eid']; ?>">
+                                        <input type="hidden" name="edit_id" value="<?php echo $row['pid']; ?>">
                                         <button type="submit" name="edit_btn" class="btn btn-success"> EDIT</button>
                                     </form>
                                 </td>
                                 <td>
                                     <form action="code.php" method="post">
-                                        <input type="hidden" name="delete_id" value="<?php echo $row['eid']; ?>">
-                                        <button type="submit" name="delete_btn" class="btn btn-danger"> DELETE</button>
+                                        <input type="hidden" name="delete_id" value="<?php echo $row['pid']; ?>">
+                                        <button type="submit" name="delete_btn_product" class="btn btn-danger"> DELETE</button>
                                     </form>
                                 </td>
                             </tr>
