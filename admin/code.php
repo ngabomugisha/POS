@@ -44,12 +44,45 @@ if (isset($_POST['delete_btn'])) {
 
 }
 
+//***************************** Update button for Product******************************//
+if (isset($_POST['updatebtn_product'])) {
+    $pidd = $_POST['id'];
+    $p_name = $_POST['p_name'];
+    $bn =$_POST['bn'];
+    $qty = $_POST['p_quantity'];
+    $price = $_POST['p_price'];
+    $unit = $_POST['p_unit_package'];
+    $sup = $_POST['sup'];
+
+    // $query1 = "INSERT INTO employee (employee_username,Employee_Name,employee_type,employee_password) VAlUES('$username','$names','$type','$password')";
+    $query = "UPDATE employee SET employee_username='$username', employee_type='$type', employee_name = '$names WHERE eid='$id' ";
+    $q_pro = "UPDATE `product` SET  `Product_Name` = '$p_name', `Bar_code` = '$bn', `Price` = '$price', `p_units_package` = '$unit', `Qty`= '$qty', `Sid` = '$sup' WHERE `pid` = '$pidd'";
+    $query_run = mysqli_query($connection, $q_pro);
+
+    if ($query_run) {
+        $_SESSION['status'] = "Your Data is Updated";
+        $_SESSION['status_code'] = "success";
+        //echo "data save".$pidd;
+        header('Location: product.php');
+    } else {
+        $_SESSION['status'] = "Your Data is NOT Updated";
+        $_SESSION['status_code'] = "error";
+        
+        die('Error: ' . mysqli_error($connection));
+        header('Location: product.php');
+        //echo "data not saved";
+    }
+}
+
 
 //***************************** Update button for employee******************************//
 if (isset($_POST['updatebtn'])) {
-    echo $id + $username;
+    $username = $_POST['username'];
+    $type = $_POST['e_type'];
+    $names = $_POST['names'];
+    $eidd= $_POST['id'];
     // $query1 = "INSERT INTO employee (employee_username,Employee_Name,employee_type,employee_password) VAlUES('$username','$names','$type','$password')";
-    $query = "UPDATE employee SET employee_username='$username', employee_type='$type', employee_name = '$names WHERE eid='$id' ";
+    $query = "UPDATE employee SET employee_username='$username', employee_type='$type', employee_name = '$names WHERE eid='$eidd' ";
     $q = "UPDATE `employee` SET `Employee_Name`='$names',`employee_username`= '$username',`employee_type`= '$type' WHERE eid = '$id'";
     $query_run = mysqli_query($connection, $q);
 

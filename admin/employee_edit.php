@@ -33,7 +33,7 @@ $connection = mysqli_connect($server_name,$db_username,$db_password,$db_name);
 <form method="POST" action="code.php">
         <div class="form-group">
                 <label> Username </label>
-                <input type="text" name="username" class="form-control" value="<?php echo $row['employee_username'] ?>" placeholder="Enter Username">
+                <input type="text" name="username" class="form-control" value="<?php echo $row['employee_username']; ?>" placeholder="Enter Username">
             </div>
             <div class="form-group">
                 <label>Name</label>
