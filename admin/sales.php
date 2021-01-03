@@ -9,7 +9,7 @@ include('security.php')
   <div class="modal-dialog" role="document">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel"> Regeistered Customer</h5>
+        <h5 class="modal-title" id="exampleModalLabel"> Sales </h5>
       </div>
       <form action="code.php" method="POST">
         <div class="modal-body">
@@ -107,30 +107,36 @@ include('security.php')
 
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <?php
-                $query = "SELECT * FROM Customer~";
+                $query = "SELECT * FROM sales";
                 $query_run = mysqli_query($connection, $query);
             ?>
         <thead>
           <tr>
             <th> # </th>
-            <th> Customer Name </th>
-            <th> TIN Number </th>
-            <th> Registered on </th>
+            <th> Customer_Name </th>
+            <th> Total_Qty  </th>
+            <th> Total_Bill on </th>
+            <th> Balance </th>
+            <th> Status </th>
+            <th> Time </th>
           </tr>
         </thead>
         <tbody>
         <?php
                         if(mysqli_num_rows($query_run) > 0)        
                         {
-                          $count = 1;
+                            $count = 1;
                             while($row = mysqli_fetch_assoc($query_run))
                             {
                         ?>
                             <tr>
                                 <td><?php  echo $count++; ?></td>
-                                <td><?php  echo $row['customer_name']; ?></td>
-                                <td><?php  echo $row['Tp_Number']; ?></td>
-                                <td><?php  echo $row['registered_date']; ?></td>
+                                <td><?php  echo $row['Customer_Name']; ?></td>
+                                <td><?php  echo $row['Total_Qty']; ?></td>
+                                <td><?php  echo $row['Total_Bill']; ?></td>
+                                <td><?php  echo $row['Balance']; ?></td>
+                                <td><?php  echo $row['Status']; ?></td>
+                                <td><?php  echo $row['Time']; ?></td>
                             </tr>
                         <?php
                             } 

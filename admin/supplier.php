@@ -15,7 +15,7 @@ include('security.php')
         <div class="modal-body">
 
             <div class="form-group">
-                <label> Customer Name </label>
+                <label> Supplier Name </label>
                 <input type="text" name="p_name" class="form-control" placeholder="Enter Product name">
             </div>
             <div class="form-group">
@@ -23,7 +23,7 @@ include('security.php')
                 <input type="text" name="bn" class="form-control" placeholder="">
             </div>
             <div class="form-group">
-                <label>REgistered On</label>
+                <label>Registered On</label>
                 <input type="text" name="bn" class="form-control" placeholder="">
             </div>
           </div>
@@ -107,13 +107,13 @@ include('security.php')
 
       <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
       <?php
-                $query = "SELECT * FROM Customer~";
+                $query = "SELECT * FROM supplier ORDER BY supplier_Name";
                 $query_run = mysqli_query($connection, $query);
             ?>
         <thead>
           <tr>
             <th> # </th>
-            <th> Customer Name </th>
+            <th> Supplier Name </th>
             <th> TIN Number </th>
             <th> Registered on </th>
           </tr>
@@ -122,15 +122,15 @@ include('security.php')
         <?php
                         if(mysqli_num_rows($query_run) > 0)        
                         {
-                          $count = 1;
+                          $count++;
                             while($row = mysqli_fetch_assoc($query_run))
                             {
                         ?>
                             <tr>
                                 <td><?php  echo $count++; ?></td>
-                                <td><?php  echo $row['customer_name']; ?></td>
+                                <td><?php  echo $row['supplier_Name']; ?></td>
                                 <td><?php  echo $row['Tp_Number']; ?></td>
-                                <td><?php  echo $row['registered_date']; ?></td>
+                                <td><?php  echo $row['sregTime']; ?></td>
                             </tr>
                         <?php
                             } 
